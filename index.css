@@ -30,7 +30,11 @@ button {
     background-color: goldenrod;
     border: none;
     font-weight: bold;
+}
 
+button:hover {
+    background-color: #016f32;
+    color: goldenrod;
 }
 
 #message-el {
