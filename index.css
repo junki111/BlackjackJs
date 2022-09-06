@@ -3,14 +3,14 @@ body {
     text-align: center;
     background-image: url("images/blackjack.jpg");
     background-size: cover;
+    background-repeat:repeat; 
     color: white;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-weight: bold;
+    overflow-y: scroll;
 }
 
 .content {
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,3 +49,317 @@ button:disabled {
     background-color: grey;
     color: black;
 }
+
+.poker-cards {
+    margin: 0 auto;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.poker-cards .playing-card {
+    background: #fff;
+    position: relative;
+    height: 220px;
+    width: 160px;
+    margin: 10px;
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba(10,10,10,0.8);
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.poker-cards .card-index {
+    position: absolute;
+    width: 40px;
+    text-align: center;
+}
+
+.poker-cards .card-index.pos-top-left {
+    top: 7px;
+    left: -5px;
+}
+
+.poker-cards .card-index.pos-bottom-right {
+    right: -5px;
+    bottom: 7px;
+    transform: scale(-1);
+}
+
+.poker-cards .card-index .suit {
+    margin: 0;
+    display: block;
+    line-height: 20px;
+}
+
+.poker-cards .suit-red {
+    color: red;
+}
+
+.poker-cards .suit-black {
+    color: black;
+}
+
+.poker-cards .card-frame {
+    position: absolute;
+    box-sizing: border-box;
+    width: 64%;
+    height: 80%;
+    left: 18%;
+    top: 10%;
+}
+
+.poker-cards .card-frame.card-frame-picture {
+    border: 2px solid black;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.poker-cards .card-frame.card-frame-picture .card-picture{
+    position: absolute;
+    line-height: 0;
+}
+
+.poker-cards .card-frame.card-frame-picture .card-picture.card-picture-suit {
+    font-size: 160%;
+}
+
+.poker-cards .card-frame.card-frame-picture .card-picture.card-picture-suit:nth-child(1) {
+    top: 14px;
+    left: 2px;
+}
+
+.poker-cards .card-frame.card-frame-picture .card-picture.card-picture-suit:nth-child(2) {
+    bottom: 14px;
+    right: 2px;
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-picture .card-picture.card-picture-K {
+    top: 24%;
+    left: 24%;
+    font-size: 134px;
+    -webkit-text-shadow: 3px 3px #67b, -3px -3px #67b, 0 0 30px #67b;
+    text-shadow: 3px 3px #67b, -3px -3px #67b, 0 0 30px #67b;
+    color: white;
+}
+
+.poker-cards .card-frame.card-frame-picture .card-picture.card-picture-K:nth-child(3) {
+    bottom: 24%;
+    right: 24%;
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-picture .card-picture.card-picture-Q {
+    top: 24%;
+    left: 24%;
+    font-size: 134px;
+    -webkit-text-shadow: 3px 3px #67b, -3px -3px #67b, 0 0 30px #67b;
+    text-shadow: 3px 3px #67b, -3px -3px #67b, 0 0 30px #67b;
+    color: white;
+}
+
+.poker-cards .card-frame.card-frame-picture .card-picture.card-picture-Q:nth-child(3) {
+    bottom: 24%;
+    right: 15%;
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-picture .card-picture.card-picture-J {
+    top: 24%;
+    left: 24%;
+    font-size: 134px;
+    -webkit-text-shadow: 3px 3px #67b, -3px -3px #67b, 0 0 30px #67b;
+    text-shadow: 3px 3px #67b, -3px -3px #67b, 0 0 30px #67b;
+    color: white;
+}
+
+.poker-cards .card-frame.card-frame-picture .card-picture.card-picture-J:nth-child(3) {
+    bottom: 24%;
+    right: 34%;
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-no-pic {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.poker-cards .card-frame.card-frame-no-pic div {
+    font-size: 170%;
+    line-height: 0;
+    justify-self: center;
+    align-self: center;
+}
+
+.poker-cards .card-frame.card-frame-no-pic div:nth-child(1) {
+    grid-area: ace;
+}
+
+.poker-cards .card-frame.card-frame-no-pic div:nth-child(2) {
+    grid-area: two;
+}
+
+.poker-cards .card-frame.card-frame-no-pic div:nth-child(3) {
+    grid-area: three;
+}
+
+.poker-cards .card-frame.card-frame-no-pic div:nth-child(4) {
+    grid-area: four;
+}
+
+.poker-cards .card-frame.card-frame-no-pic div:nth-child(5) {
+    grid-area: five;
+}
+
+.poker-cards .card-frame.card-frame-no-pic div:nth-child(6) {
+    grid-area: six;
+}
+
+.poker-cards .card-frame.card-frame-no-pic div:nth-child(7) {
+    grid-area: seven;
+}
+
+.poker-cards .card-frame.card-frame-no-pic div:nth-child(8) {
+    grid-area: eight;
+}
+
+.poker-cards .card-frame.card-frame-no-pic div:nth-child(9) {
+    grid-area: nine;
+}
+
+.poker-cards .card-frame.card-frame-no-pic div:nth-child(10) {
+    grid-area: ten;
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-A {
+    font-size: 250%;
+    grid-template-columns: 10px 1fr 10px;
+    grid-template-areas: ". ace .";
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-2 {
+    grid-template-areas:
+        ". ace ."
+        ". . ."
+        ". . ."
+        ". . ."
+        ". two .";
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-2 div:nth-child(2) {
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-3 {
+    grid-template-areas:
+        ". ace ."
+        ". . ."
+        ". two ."
+        ". . ."
+        ". three .";
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-3 div:nth-child(3) {
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-4 {
+    grid-template-areas:
+        "ace . two"
+        ". . ."
+        ". . ."
+        ". . ."
+        "three . four";
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-4 div:nth-child(3), .poker-cards .card-frame.card-frame-no-pic.card-frame-4 div:nth-child(4) {
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-5 {
+    grid-template-areas: 
+        "ace . two"
+        ". . ."
+        ". three ."
+        ". . ."
+        "four . five";
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-5 div:nth-child(4), .poker-cards .card-frame.card-frame-no-pic.card-frame-5 div:nth-child(5) {
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-6 {
+    grid-template-areas: 
+        "ace . two"
+        ". . ."
+        "three . four"
+        ". . ."
+        "five . six";
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-6 div:nth-child(5), .poker-cards .card-frame.card-frame-no-pic.card-frame-6 div:nth-child(6) {
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-7 {
+    grid-template-areas: 
+        "ace . two"
+        ". three ."
+        "four . five"
+        ". . ."
+        "six . seven";
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-7 div:nth-child(6), .poker-cards .card-frame.card-frame-no-pic.card-frame-7 div:nth-child(7) {
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-8 {
+    grid-template-areas: 
+        "ace . two"
+        ". three ."
+        "four . five"
+        ". six ."
+        "seven . eight";
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-8 div:nth-child(6), .poker-cards .card-frame.card-frame-no-pic.card-frame-8 div:nth-child(7), .poker-cards .card-frame.card-frame-no-pic.card-frame-8 div:nth-child(8) {
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-9 {
+    grid-template-areas: 
+        "ace . two"
+        ". . ."
+        "three . four"
+        ". five ."
+        "six . seven"
+        ". . ."
+        "eight . nine";
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-9 div:nth-child(6), .poker-cards .card-frame.card-frame-no-pic.card-frame-9 div:nth-child(7), .poker-cards .card-frame.card-frame-no-pic.card-frame-9 div:nth-child(8), .poker-cards .card-frame.card-frame-no-pic.card-frame-9 div:nth-child(9) {
+    transform: scale(-1);
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-10 {
+    grid-template-areas: 
+        "ace . two"
+        ". three ."
+        "four . five"
+        ". . ."
+        "six . seven"
+        ". eight ."
+        "nine . ten";
+}
+
+.poker-cards .card-frame.card-frame-no-pic.card-frame-10 div:nth-child(6), .poker-cards .card-frame.card-frame-no-pic.card-frame-10 div:nth-child(7), .poker-cards .card-frame.card-frame-no-pic.card-frame-10 div:nth-child(8), .poker-cards .card-frame.card-frame-no-pic.card-frame-10 div:nth-child(9), .poker-cards .card-frame.card-frame-no-pic.card-frame-10 div:nth-child(10) {
+    transform: scale(-1);
+}
+
+
+
+

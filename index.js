@@ -2,70 +2,92 @@ let minVal = 1
 let maxVal = 13
 let hasBlackJack = false
 let isAlive = false
-let message = ""
+let message = ''
 let cards = []
 let tempCards = []
 let sum = 0
-const messageEl = document.getElementById("message-el")
-const sumEl = document.querySelector("#sum-el")
-const cardsEl = document.querySelector("#cards-el")
-const newCardBtn = document.querySelector("#new-card-btn")
-const startGameBtn = document.querySelector("#start-game-btn")
-const finishGameBtn = document.querySelector("#finish-game-btn")
+const messageEl = document.getElementById('message-el')
+const sumEl = document.querySelector('#sum-el')
+const cardsEl = document.querySelector('#cards-el')
+const newCardBtn = document.querySelector('#new-card-btn')
+const startGameBtn = document.querySelector('#start-game-btn')
+const finishGameBtn = document.querySelector('#finish-game-btn')
+
+newCardBtn.addEventListener('click', () => deal(1))
+startGameBtn.addEventListener('click', startGame)
+finishGameBtn.addEventListener('click', cardFinish)
 
 //new code
 let packOfCards = []
-const suits = ["♥","♦","♣","♠"]
+const suits = ['♥', '♦', '♣', '♠']
 
 let createDeck = () => {
     //populate all 52 playing cards
-    for (let j = 0; j < suits.length; j++){
-        let value = ""
-        for (let i = 1; i <= 13; i++){
-            switch(i){
+    for (let j = 0; j < suits.length; j++) {
+        let value = ''
+        for (let i = 1; i <= 13; i++) {
+            switch (i) {
                 case 1:
-                    value = "A"
+                    value = 'A'
                     break
                 case 11:
-                    value = "J"
+                    value = 'J'
                     break
                 case 12:
-                    value = "Q"
+                    value = 'Q'
                     break
                 case 13:
-                    value = "K"
+                    value = 'K'
                     break
                 default:
                     value = i
             }
 
             //Store the value and the suit as an object representing each card possible
-            packOfCards.push(
-                {
-                    value: value.toString(),
-                    suit: suits[j]
-                }
-            )
+            packOfCards.push({
+                value: value.toString(),
+                suit: suits[j],
+            })
         }
     }
 }
 
-const deal = (num) => {
+let deal = (num) => {
     for (let i = 0; i < num; i++) {
         //generate random card number from total of 52
         randCardNo = Math.floor(Math.random() * packOfCards.length)
-
+        // console.log(packOfCards[randCardNo])
+        let { value, suit } = packOfCards[randCardNo]
+        // console.log(value)
+        switch (value) {
+            case 'A':
+                if (sum + 11 > 21) {
+                    sum += 1
+                } else {
+                    sum += 11
+                }
+                break
+            case 'J':
+                sum += 10
+                break
+            case 'Q':
+                sum += 10
+                break
+            case 'K':
+                sum += 10
+                break
+            default:
+                sum += parseInt(parseInt(packOfCards[randCardNo].value))
+        }
         //add card to dealt cards array
         cards.push(packOfCards[randCardNo])
-
-        packOfCards = packOfCards.filter(card => {
-            card !== packOfCards[randCardNo]
-        })
+        //remove the card from the array
+        packOfCards.splice(randCardNo, 1)
     }
-    return cards
+    renderCards()
 }
 
-const pokerCards = document.getElementById("poker-cards")
+const pokerCards = document.getElementById('poker-cards')
 let cardFrame = ''
 let suitColor = ''
 
@@ -73,8 +95,8 @@ let renderCards = () => {
     pokerCards.innerHTML = ''
 
     for (let i = 0; i < cards.length; i++) {
-        let cardSuit = cards[i].suit
-        let cardValue = cards[i].value
+        let cardSuit = cards[i]?.suit
+        let cardValue = cards[i]?.value
 
         if (/♥|♦/g.test(cardSuit)) {
             suitColor = 'red'
@@ -106,6 +128,45 @@ let renderCards = () => {
             </div>
         `
     }
+    if (sum <= 20) {
+        message = 'Do you want to draw a new card?'
+        startGameBtn.disabled = true
+        newCardBtn.disabled = false
+        finishGameBtn.disabled = false
+    } else if (sum === 21) {
+        message = "Wohoo! You've got Blackjack!"
+        isAlive = false
+        hasBlackJack = true
+        newCardBtn.disabled = true
+        finishGameBtn.disabled = true
+        startGameBtn.disabled = false
+        cards = []
+        tempCards = []
+    } else {
+        message = "You've lost! You've gone over 21!"
+        isAlive = false
+        newCardBtn.disabled = true
+        finishGameBtn.disabled = true
+        startGameBtn.disabled = false
+        cards = []
+        tempCards = []
+    }
+    messageEl.textContent = message
+    sumEl.textContent = 'Sum: ' + sum
+}
+
+function cardFinish() {
+    isAlive = false
+    message = `Congratulations!! Your final score is ${sum}`
+    messageEl.textContent = message
+    cardsEl.textContent = ''
+    sumEl.textContent = ''
+    //reset the game
+    startGameBtn.disabled = false
+    newCardBtn.disabled = true
+    finishGameBtn.disabled = true
+    cards = []
+    sum = 0
 }
 
 //inner card layout creation
@@ -113,7 +174,7 @@ let suitLayout = (num, suit) => {
     let layoutDivs = ''
 
     //for number cards
-    if (num === 'A'){
+    if (num === 'A') {
         num = 1
     }
 
@@ -146,9 +207,9 @@ let randomRotation = () => {
 }
 
 //EventListeners
-newCardBtn.addEventListener("click", newCard)
-startGameBtn.addEventListener("click", startGame)
-finishGameBtn.addEventListener("click", finishGame)
+// newCardBtn.addEventListener("click", newCard)
+// startGameBtn.addEventListener("click", startGame)
+// finishGameBtn.addEventListener("click", finishGame)
 
 newCardBtn.disabled = true
 finishGameBtn.disabled = true
@@ -157,18 +218,22 @@ function generateRandom(min, max) {
     min = Math.ceil(min)
     max = Math.floor(max)
     let rndmNumber = Math.floor(Math.random() * (max - min + 1)) + min
-	tempCards.push(rndmNumber)
-	if(countCardOccurence(tempCards, rndmNumber) === 4){
-		generateRandom()
-		tempCards.pop()
-	} else {
-		if (rndmNumber === 1) {
-			return 11
-		} else if (rndmNumber === 11 || rndmNumber === 12 || rndmNumber === 13) {
-			return 10
-		}
-		return rndmNumber
-	}  
+    tempCards.push(rndmNumber)
+    if (countCardOccurence(tempCards, rndmNumber) === 4) {
+        generateRandom()
+        tempCards.pop()
+    } else {
+        if (rndmNumber === 1) {
+            return 11
+        } else if (
+            rndmNumber === 11 ||
+            rndmNumber === 12 ||
+            rndmNumber === 13
+        ) {
+            return 10
+        }
+        return rndmNumber
+    }
 }
 
 function startGame() {
@@ -180,43 +245,44 @@ function startGame() {
     // sum = firstCard + secondCard
 
     // renderGame()
-
+    sum = 0
+    createDeck()
     isAlive = true
     deal(2)
     renderCards()
 }
 
 function renderGame() {
-    cardsEl.textContent = "Cards: "
+    cardsEl.textContent = 'Cards: '
     for (let i = 0; i < cards.length; i++) {
         cardsEl.textContent += `${cards[i]} `
     }
 
     if (sum <= 20) {
-        message = "Do you want to draw a new card?"
+        message = 'Do you want to draw a new card?'
         startGameBtn.disabled = true
         newCardBtn.disabled = false
-		finishGameBtn.disabled = false
+        finishGameBtn.disabled = false
     } else if (sum === 21) {
         message = "Wohoo! You've got Blackjack!"
         isAlive = false
         hasBlackJack = true
         newCardBtn.disabled = true
-		finishGameBtn.disabled = true
+        finishGameBtn.disabled = true
         startGameBtn.disabled = false
         cards = []
-		tempCards = []
+        tempCards = []
     } else {
         message = "You've lost! You've gone over 21!"
         isAlive = false
         newCardBtn.disabled = true
-		finishGameBtn.disabled = true
+        finishGameBtn.disabled = true
         startGameBtn.disabled = false
         cards = []
-		tempCards = []
+        tempCards = []
     }
     messageEl.textContent = message
-    sumEl.textContent = "Sum: " + sum
+    sumEl.textContent = 'Sum: ' + sum
 }
 
 function countCardOccurence(array, what) {
@@ -237,15 +303,15 @@ function newCard() {
 }
 
 function finishGame() {
-	isAlive = false
-	message = `Congratulations!! Your final score is ${sum}`
-	messageEl.textContent = message
-	cardsEl.textContent = ""
-	sumEl.textContent = ""
-	//reset the game
-	startGameBtn.disabled = false
-	newCardBtn.disabled = true
-	finishGameBtn.disabled = true
-	cards = []
-	tempCards = []
+    isAlive = false
+    message = `Congratulations!! Your final score is ${sum}`
+    messageEl.textContent = message
+    cardsEl.textContent = ''
+    sumEl.textContent = ''
+    //reset the game
+    startGameBtn.disabled = false
+    newCardBtn.disabled = true
+    finishGameBtn.disabled = true
+    cards = []
+    tempCards = []
 }
