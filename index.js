@@ -259,12 +259,12 @@ function renderGame() {
     }
 
     if (sum <= 20) {
-        message = 'Do you want to draw a new card?'
+        message = 'Do you want to draw a new card?😁😁'
         startGameBtn.disabled = true
         newCardBtn.disabled = false
         finishGameBtn.disabled = false
     } else if (sum === 21) {
-        message = "Wohoo! You've got Blackjack!"
+        message = "Wohoo! You've got Blackjack!🎉🎉🎉"
         isAlive = false
         hasBlackJack = true
         newCardBtn.disabled = true
@@ -273,7 +273,7 @@ function renderGame() {
         cards = []
         tempCards = []
     } else {
-        message = "You've lost! You've gone over 21!"
+        message = "You've lost! You've gone over 21!☹️☹️"
         isAlive = false
         newCardBtn.disabled = true
         finishGameBtn.disabled = true
